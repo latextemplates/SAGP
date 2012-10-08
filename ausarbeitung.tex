@@ -1,0 +1,407 @@
+\documentclass[a4paper,fontsize=11pt,parskip=off,open=any,bibtotoc,headings=normal,appendixrefix=true,listof=totoc]{scrbook}
+
+% \usepackage[automark]{scrpage2}
+% \pagestyle{scrheadings}
+
+%\usepackage{fontspec}
+%\setmainfont{Arial}
+%\setmainfont[Ligatures=TeX]{Helvetica}
+%\usepackage{helvet}
+
+\usepackage[top=2.5cm,bottom=2cm,left=2.5cm,right=3cm,footskip=1cm]{geometry}
+\usepackage[ngerman]{babel}
+%hyph-utf8 should automatically have been loaded
+
+%\usepackage{microtype}
+%\usepackage{lipsum}
+
+%\usepackage{xcolor}
+%\usepackage{tocstyle}
+
+\iffalse
+%Testing for PDF latex, does not work
+
+%\usepackage[scaled]{uarial}
+\usepackage[scaled]{helvet}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the 
+% document is to be sans serif
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+
+\else
+%lualatex
+
+%x\usepackage{luaotfload}
+%\usepackage[EU2]{fontenc}
+
+%\pdfprotrudechars % protrusion without affecting line breaks
+%\pdfadjustspacing % expansion without affecting line breaks
+\pdfprotrudechars=2 % protrusion with affecting line breaks
+\pdfadjustspacing=2 % expansion with affecting line breaks
+
+\usepackage{fontspec}
+%\newfontfamily\ArialRounded{Arial Rounded MT Bold}
+%\addtokomafont{disposition}{\ArialRounded\normalsize}
+
+%\newfontfamily\ArialRounded{Arial Rounded MT Bold}
+\addtokomafont{disposition}{\normalfont\bfseries}
+%\addtokomafont{chapter}{\normalsize}
+%\addtokomafont{section}{\normalsize}
+%\addtokomafont{subsection}{\normalsize}
+%\addtokomafont{pagehead}{\normalfont\scshape}
+
+\newfontfeature{Microtype}{protrusion=off;expansion=default;}
+
+%\setmainfont[RawFeature={protrusion=default;expansion=default;},Ligatures=TeX]{Linux Libertine O}
+\setmainfont[Microtype,Ligatures=TeX,Renderer=Basic]{Arial}
+%\setmainfont[Ligatures=TeX]{Arial}
+\fi
+
+\usepackage{csquotes}
+%\usepackage[style=french,french=guillemets*]{csquotes} % zu viel Platz
+%Tipp von csquotes.pdf, page 28 (Section 10.8)
+%\defineshorthand{"`}{\openautoquote}
+%\defineshorthand{"'}{\closeautoquote}
+
+\usepackage[
+  maxnames=99,
+  maxcitenames=3,
+  bibencoding=auto,
+  backend=biber,
+  sortlocale=de,
+  style=authoryear-comp,
+  sorting=nyt,
+  backref=true,
+  backrefstyle=two,
+  hyperref=true,
+  dashed=false,
+  mincrossrefs=1
+]{biblatex}
+
+\DeclareFieldFormat{postnote}{S.\,#1}
+\DeclareFieldFormat{multipostnote}{S.\,#1}
+
+%Tipp von http://meinews.niuz.biz/biblatex-t473141.html
+\DeclareFieldFormat{citetitle}{#1\isdot}
+\DeclareFieldFormat[article]{citetitle}{{#1\isdot}}
+\DeclareFieldFormat[inbook]{citetitle}{{#1\isdot}}
+\DeclareFieldFormat[incollection]{citetitle}{{#1\isdot}}
+\DeclareFieldFormat[inproceedings]{citetitle}{{#1\isdot}}
+\DeclareFieldFormat[patent]{citetitle}{{#1\isdot}}
+\DeclareFieldFormat[thesis]{citetitle}{{#1\isdot}}
+\DeclareFieldFormat[unpublished]{citetitle}{{#1\isdot}}
+
+\DefineBibliographyStrings{ngerman}{%
+  urlseen = {zuletzt geprüft am},
+  backrefpage = {zitiert auf S.\,},
+  backrefpages = {zitiert auf S.\,}
+}
+
+\usepackage[
+  pdfauthor = {{undefined}}, % Durch "Vorname Nachname" erseten -- wichtig: doppelte Klammerung
+  pdftitle = {{undefined}},  % Durch den Titel der Arbeit - ohne "\\" usw. ersetzen.
+  unicode,
+%  pdfpagelabels=true,
+  bookmarks=true,
+  bookmarksnumbered=true,
+%  bookmarksopen=true,
+%  bookmarksopenlevel=1,
+%  colorlinks=true,
+%  hyperindex=true,
+%  linkcolor=black, %blue, %default: red
+%  citecolor=black, %Mulberry,%DarkOrchid, %default: green
+%  urlcolor=black, %blue, default: cyan
+  pdfview = Fit,
+  pdfpagelayout=SinglePage,
+]{hyperref}
+
+\usepackage{tabularx}
+
+\usepackage{paralist}
+
+\usepackage{graphics}
+
+\usepackage{ragged2e}
+
+%Zeilenabstand wie bei Word
+\usepackage{setspace}
+%\onehalfspacing
+\setstretch{1.4}
+
+\bibliography{literaturverzeichnis.bib}
+
+\newcommand{\citep}[2][]{\parencite[vgl.][#1]{#2}}
+\let\citet\cite
+%\let\citet\textcite
+
+\usepackage{xspace}
+%%% Fussnoten/Endnoten ===================================================
+%
+%%% Doc: ftp://tug.ctan.org/pub/tex-archive/macros/latex/contrib/footmisc/footmisc.pdf
+%
+\usepackage[
+   bottom,      % Footnotes appear always on bottom. This is necessary
+                % especially when floats are used
+   stable,      % Make footnotes stable in section titles
+   %perpage,     % Reset on each page
+   %para,       % Place footnotes side by side of in one paragraph.
+   %side,       % Place footnotes in the margin
+   ragged,      % Use RaggedRight
+   %norule,     % suppress rule above footnotes
+   multiple,    % rearrange multiple footnotes intelligent in the text.
+   %symbol,     % use symbols instead of numbers
+]{footmisc}
+
+\interfootnotelinepenalty=10000 % Verhindert das Fortsetzen von
+                                % Fussnoten auf der gegenüberligenden Seite
+
+\newcommand{\ua}{u.\,a.\xspace}
+\newcommand{\vgl}{vgl.\xspace}
+\newcommand{\zB}{z.\,B.\xspace}
+\renewcommand{\dh}{d.h.\xspace}
+\usepackage{xcolor}
+\usepackage{xifthen}% provides \isempty test 
+
+\definecolor{quotemark}{gray}{0.7}
+\newenvironment{fquote}[1]{%
+  \newcommand{\fqauthor}{\relax}
+  \ifthenelse{\isempty{#1}}
+  	{}% do nothing
+  	{
+\noindent
+\begin{minipage}{\textwidth}
+\vspace{.5\baselineskip}
+\renewcommand{\fqauthor}{\hfill\textsc{#1}}}
+%  \vspace{1em}
+  \begin{list}{}{%
+      \setlength{\leftmargin}{1cm}
+      \setlength{\rightmargin}{1cm}
+    }
+    \item[]%
+    \begin{picture}(0,0)(0,0)
+      \put(-15,-5){\makebox(0,0){%
+	  \scalebox{4.5}{\textcolor{quotemark}{\bfseries \glqq}}}%
+      }
+    \end{picture}\em\ignorespaces%
+}{%
+  \newline%
+  \makebox[0pt][l]{\hspace{13.7cm}%
+  \begin{picture}(0,0)(0,0)
+    \put(15,10){\makebox(0,0){%
+	\scalebox{4.5}{\textcolor{quotemark}{\rm\bfseries \grqq}}}%
+    }
+  \end{picture}}%
+  \fqauthor
+  \end{list}
+\vspace{0\baselineskip}
+\end{minipage}
+}
+
+%\input{chapterheads}
+
+%\usepackage[compact]{titlesec}
+%\titlespacing{\chapter}{0pt}{0pt}{12pt}
+
+\raggedbottom
+
+\renewcommand*{\chapterheadstartvskip}{\vspace*{-\topskip}\vspace{-\baselineskip}}
+
+%\usepackage{titlesec}
+
+
+\makeatletter
+% Warnen, falls die vorgefundene Originaldefinition nicht
+% der erwarteten Originaldefinition entspricht:
+\CheckCommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {-3.25ex\@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\ifnum \scr@compatibility>\@nameuse{scr@v@2.96}\relax
+    \setlength{\parfillskip}{\z@ plus 1fil}\fi
+    \raggedsection\normalfont\sectfont\nobreak\size@subsection
+  }%
+}
+% Definition ändern:
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {-.5\baselineskip}%
+  {.5\baselineskip}%
+  {\ifnum \scr@compatibility>\@nameuse{scr@v@2.96}\relax
+    \setlength{\parfillskip}{\z@ plus 1fil}\fi
+    \raggedsection\normalfont\sectfont\nobreak\size@subsection
+  }%
+}
+
+
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-.5\baselineskip}%
+  {.5\baselineskip}%
+  {\ifnum \scr@compatibility>\@nameuse{scr@v@2.96}\relax
+    \setlength{\parfillskip}{\z@ plus 1fil}\fi
+    \raggedsection\normalfont\sectfont\nobreak\size@section}%
+}
+
+\makeatother
+
+\renewcommand*{\chapterheadstartvskip}{\vspace{-.3cm}}
+%\renewcommand*{\chapterheadstartvskip}{\vspace*{-\topskip}}
+\renewcommand*{\chapterheadendvskip}{\vspace{.3cm}}
+%\renewcommand*{\chapterheadendvskip}{.5\baselineskip}
+
+\begin{document}
+
+%Falls Abbildungen im Anhang sind und es mehr als 9 sind:
+%Abstände im Inhaltsverzeichnis korrigieren
+\makeatletter
+\renewcommand\l@figure{\@dottedtocline{0}{0em}{3em}} 
+\makeatother
+
+\setlength{\parindent}{2em}
+\renewcommand{\subsectionautorefname}{Abschnitt}
+\renewcommand{\bibname}{Literaturverzeichnis}
+
+%\titlespacing{\section}{11pt}{0em}{0em}
+%\titlespacing{\subsection}{11pt}{0em}{0em}
+%\titlespacing{\subsubsection}{11pt}{0em}{0em}
+
+\titlehead{\centering\Large Hochschule Esslingen\\
+Fakultät: Soziale Arbeit, Gesundheit und Pflege\\
+Studiengang: Bildung und Erziehung in der Kindheit (B.\,A.)
+}
+\subject{Bachelorarbeit}
+%\subtitle{Klein aber fein?}
+\date{Esslingen, 15.\ Mai 2012}
+\publishers{\raggedright 
+\large
+\begin{tabular}{ll}
+Betreuende Professorin: &Prof.\,Dr.\,paed.\,Dipl.-Päd.\ Regine Morys\\
+Zweitprüferin: &Prof.\,Dr.\,phil.\,Dipl.-Sozialpäd.\,(FH)\,Dipl.-Päd.\ Ulrike Zöller
+\end{tabular}
+}
+
+\author{Vorname Nachname\vspace{-.3cm}\\{\small Matrikelnummer: 11\,22\,33 | {xy00@hs-esslingen.de}}}
+\title{Mein Titel\\mit einem kleinen  Umbruch}
+
+\lowertitleback{
+\href{http://creativecommons.org/licenses/by-sa/3.0/de/}{\includegraphics[scale=.5]{CC-by-sa.png}}
+%Dieses Werk bzw. Inhalt steht unter einer \href{http://creativecommons.org/licenses/by-sa/3.0/de/}{Creative Commons Namensnennung-Weitergabe unter gleichen Bedingungen 3.0 Deutschland Lizenz}.
+
+Diese Arbeit wurde mit Hilfe von \href{http://www.komascript.de/}{\KOMAScript} und \href{http://www.luatex.org/}{LuaLaTeX} gesetzt. Die Vorlage befindet über \href{https://github.com/latextemplates/SAGP}{{https://github.com/latextemplates/SAGP}} verfügbar.
+}
+
+\maketitle
+
+ %Darf NICHT benutzt werden, da ALLE Überschriften auch im Inhaltsverzeichnis auftauchen sollen
+%\setcounter{tocdepth}{1}
+
+\tableofcontents
+\listoffigures
+
+\chapter*{Abkürzungsverzeichnis}
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+%\centering
+
+\begin{tabularx}{.8\textwidth}{@{}lX}
+%\begin{tabular}{lp{.6\textwidth}}
+\textbf{Abkürzung} & \textbf{Bedeutung}\\
+%{\ArialRounded Abkürzung} & {\ArialRounded Bedeutung}\\
+BMFSFJ & Bundesministerium für Familie, Senioren, Frauen und Jugend\\
+FaFo & FamilienForschung Baden-Württemberg\\
+VAMV & Verband alleinerziehender Mütter und Väter, Bundesverband e.\,V.\\
+\end{tabularx}
+
+\chapter{Einleitung}
+%\setcounter{page}{1} %REMOVEME
+\label{Einleitung}
+
+Zitate: Am Ende in der Klammer (\vgl \citet[9]{Peuckert2008}).
+
+Es Kapitel, Graphiken usw.\ werden mit \autoref{Einleitung} gemacht: 
+Die Arbeit wird mit dem \autoref{zusammenfassung} \enquote{\nameref{zusammenfassung}} abgeschlossen.
+
+Anführungszeichen mit \enquote{Text}.
+
+\section{Abschnitt}
+
+\subsection{Unterabschnitt}
+
+\autoref{fig:LebendGeb} zeigt die Anzahl der Lebendgeborenen je 1\,000 Frauen im Jahr 2010.
+
+Bei Graphiken darauf achten, dass .pdf, .jpg, .png o.ä. verwendet wird. Kein .eps o.ä.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.75\textwidth]{Lebendgeborene.pdf}
+\caption[Anzahl der Lebendgeborenen je 1\,000 Frauen 2010]{Anzahl der Lebendgeborenen je 1\,000 Frauen nach Alter der Mutter 2010 (aus
+Statistisches Bundesamt, 2011: Statistik der Geburten in
+\citet[16]{BundesministeriumfuerFamilie2011})}
+\label{fig:LebendGeb}
+\end{figure}
+
+
+\chapter{Zusammenfassung und Ausblick}
+\label{zusammenfassung}
+
+\minisec{Ausblick}
+%nicht als \section{}, da es keine zweite section hier gibt.
+
+
+%Literaturverzeichnis
+{
+\RaggedRight
+%\singlespacing %Der Standard fordert einzeilig. Es sieht allerdings nicht gut aus.
+\printbibliography
+}
+
+\noindent
+Die im Literaturverzeichnis aufgeführten Sammelwerke werden indirekt durch das Zitat eines
+enthaltenen Beitrags referenziert. Die Formvorschriften verlangen eine Auflistung dieser im
+Literaturverzeichnis.
+
+% \printbibheading
+
+% \printbibliography[
+% title={Direkt zitierte Literatur},
+% heading=subbibliography,
+% notype=proceedings,
+% notkeyword=nonorig]
+
+% \printbibliography[
+% title={Sammelbände},
+% heading=subbibliography,
+% type=proceedings,
+% notkeyword=nonorig]
+
+% \printbibliography[
+% title={Zitierte nicht-vorliegende Originalquellen},
+% heading=subbibliography,
+% keyword=nonorig]
+
+
+% Versicherung
+
+\clearpage
+\pagestyle{empty}
+
+\centering
+\begin{minipage}{.66\textwidth}
+\begin{center}
+{\Huge\textbf{Erklärung}}
+\end{center}
+\vspace{1.5\baselineskip}
+
+
+Hiermit versichere ich gemäß §\,28 der Studien- und
+Prüfungsordnung der Hochschule Esslingen -- Fakultät Soziale Arbeit, Gesundheit
+und Pflege, dass ich diese Bachelorarbeit selbständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe. 
+
+\vspace{3ex}
+Ort, 15.\ Mai 2012
+
+\vspace{3cm}
+\hrule
+\vspace{.2cm}
+Vorname Nachname
+
+\end{minipage}
+
+\end{document}
