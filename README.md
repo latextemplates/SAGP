@@ -1,7 +1,9 @@
 SAGP
 ====
 
-LaTeX-Vorlage für Bachelor- und Master-Arbeiten der Fakultät "Soziale Arbeit, Gesundheit und Pflege" der HS-Esslingen, Deutschland.
+Inoffizielle LaTeX-Vorlage für Bachelor- und Master-Arbeiten der Fakultät "Soziale Arbeit, Gesundheit und Pflege" der HS-Esslingen, Deutschland.
+Die Vorlage wurde nach bestem Wissen und Gewissen erstellt. Sie folgt den Formvorschriften Anfang 2012 an der Fakultät SAGP.
+Anmerkungen und Änderungswünsche werden gerne entgegen genommen.
 
 Die Vorlage kann durch den Klick auf [ZIP](https://github.com/latextemplates/SAGP/zipball/master) heruntergeladen werden.
 
