@@ -1,38 +1,59 @@
-\documentclass[a4paper,fontsize=11pt,parskip=off,open=any,bibtotoc,headings=normal,appendixrefix=true,listof=totoc]{scrbook}
+% -*- coding:utf-8 mod:LaTeX -*-
 
-% \usepackage[automark]{scrpage2}
-% \pagestyle{scrheadings}
+%%%%%%%%%%
+% 8-UNG; VOR DRUCK ZUR ABGABE FOLGENDES BEACHTEN:
+% - Einseitig oder Zweiseitiger Druck? (-> Entsprechende Option oben.)
+% - Nach TBD in der Datei suchen und Probleme beheben.
+% - Abkürzungen korrekt setzen (z. B. "\zB" statt "z.B." oder ähnlichem).
+% - Korrekte Anführungszeichen setzten (z. B. "`So ist's gut"' für deutsche Anführungszeichen).
+% - Rechtschreibkorrektur über den Text lassen.
+% - Skript zur Erkennung von Wortverdopplungen drüber lassen.
+% - Silbentrennung.
+% - Titel, Namen, Matrikelnummer, E-Mail, Datum, Betreuer\_Innen (und sonstige Angaben) auf dem Titelblatt überprüfen.
+% - Formulierung der Erklärung überprüfen und 'Ort' und 'Datum' überprüfen und 'Vorname Nachname' anpassen.
+% - Copyright und \LaTeX-Hinweis gewollt?
+% - Hinweis in Bibliographie gewollt?
 
-%\usepackage{fontspec}
-%\setmainfont{Arial}
-%\setmainfont[Ligatures=TeX]{Helvetica}
-%\usepackage{helvet}
 
-\usepackage[top=2.5cm,bottom=2cm,left=2.5cm,right=3cm,footskip=1cm]{geometry}
+%%%%%%%%%%
+\documentclass[a4paper,oneside,fontsize=11pt,headsepline,parskip=off,open=any,headings=small,listof=totoc,bibliography=totoc]{scrbook}
+
+
+%%%%%%%%%%
+% Ränder und auf deutsch.
+\usepackage[a4paper,left=2.5cm,right=3.3cm,top=3.3cm,bottom=3.0cm,footskip=1cm,twoside=false]{geometry}
+% Alternativ: top=2.5cm,bottom=2cm,left=2.5cm,right=3cm,footskip=1cm
 \usepackage[ngerman]{babel}
-%hyph-utf8 should automatically have been loaded
 
-%\usepackage{microtype}
-%\usepackage{lipsum}
 
-%\usepackage{xcolor}
-%\usepackage{tocstyle}
+%%%%%%%%%%
+% Zeilenabstand 1,5-zeilig
+\usepackage{setspace}
+% ACHTUNG: \onehalfspacing ist zu klein gesetzt, wenn man es gegen
+% Word misst! \setstretch{1.4} kommt eher hin.
+%\onehalfspacing
+\setstretch{1.4}
+\raggedbottom
 
-\iffalse
-%Testing for PDF latex, does not work
 
-%\usepackage[scaled]{uarial}
-\usepackage[scaled]{helvet}
-\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the 
-% document is to be sans serif
+%%%%%%%%%%
+% pdflatex / lualatex?
+\iftrue % pdflatex
+
+% TBD: Scaled oder nicht scaled, das ist hier die Frage.
+% Source: http://www.tug.dk/FontCatalogue/helvetica/
+%\usepackage[scaled]{helvet}
+\usepackage{helvet}
+%\usepackage[scaled]{uarial} % Alternative...
+ %% Only if the base font of the document is to be sans serif
+\renewcommand*{\familydefault}{\sfdefault}
+
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{microtype}
 
-\else
-%lualatex
-
-%x\usepackage{luaotfload}
+\else % lualatex
+%\usepackage{luaotfload}
 %\usepackage[EU2]{fontenc}
 
 %\pdfprotrudechars % protrusion without affecting line breaks
@@ -57,18 +78,40 @@
 \setmainfont[Microtype,Ligatures=TeX,Renderer=Basic]{Arial}
 %\setmainfont[Ligatures=TeX]{Arial}
 \fi
+% END: pdflatex / lualatex?
+%%%%%%%%%%
 
+
+% TBD: Alle notwendig?
+\usepackage{fixltx2e,graphicx,ragged2e,xspace,xcolor,url,enumerate}
+% Herausgenommen: paralist,tabularx
+% \usepackage{xifthen} % Stellt \isempty zur Verfuegung
+
+
+%%%%%%%%%%
+% Fortgeschrittene Zitate.
 \usepackage{csquotes}
 %\usepackage[style=french,french=guillemets*]{csquotes} % zu viel Platz
-%Tipp von csquotes.pdf, page 28 (Section 10.8)
-%\defineshorthand{"`}{\openautoquote}
-%\defineshorthand{"'}{\closeautoquote}
+% % Tipp von csquotes.pdf, Seite 28, Abschnitt 10.8:
+% \defineshorthand{"`}{\openautoquote}
+% \defineshorthand{"'}{\closeautoquote}
 
+
+% %%%%%%%%%%
+% % Alternative layouts. DEAKTIVIERT.
+% \usepackage[automark]{scrpage2}
+% \pagestyle{scrheadings}
+% \usepackage{tocstyle}
+
+
+%%%%%%%%%%
+% Bibliographie aufsetzen.
 \usepackage[
+  backend=bibtex,
+  % Alternativ dazu: backend=biber,
   maxnames=99,
   maxcitenames=3,
   bibencoding=auto,
-  backend=biber,
   sortlocale=de,
   style=authoryear-comp,
   sorting=nyt,
@@ -82,7 +125,7 @@
 \DeclareFieldFormat{postnote}{S.\,#1}
 \DeclareFieldFormat{multipostnote}{S.\,#1}
 
-%Tipp von http://meinews.niuz.biz/biblatex-t473141.html
+% Tipp von http://meinews.niuz.biz/biblatex-t473141.html
 \DeclareFieldFormat{citetitle}{#1\isdot}
 \DeclareFieldFormat[article]{citetitle}{{#1\isdot}}
 \DeclareFieldFormat[inbook]{citetitle}{{#1\isdot}}
@@ -98,48 +141,16 @@
   backrefpages = {zitiert auf S.\,}
 }
 
-\usepackage[
-  pdfauthor = {{undefined}}, % Durch "Vorname Nachname" erseten -- wichtig: doppelte Klammerung
-  pdftitle = {{undefined}},  % Durch den Titel der Arbeit - ohne "\\" usw. ersetzen.
-  unicode,
-%  pdfpagelabels=true,
-  bookmarks=true,
-  bookmarksnumbered=true,
-%  bookmarksopen=true,
-%  bookmarksopenlevel=1,
-%  colorlinks=true,
-%  hyperindex=true,
-%  linkcolor=black, %blue, %default: red
-%  citecolor=black, %Mulberry,%DarkOrchid, %default: green
-%  urlcolor=black, %blue, default: cyan
-  pdfview = Fit,
-  pdfpagelayout=SinglePage,
-]{hyperref}
-
-\usepackage{tabularx}
-
-\usepackage{paralist}
-
-\usepackage{graphics}
-
-\usepackage{ragged2e}
-
-%Zeilenabstand wie bei Word
-\usepackage{setspace}
-%\onehalfspacing
-\setstretch{1.4}
-
 \bibliography{literaturverzeichnis.bib}
 
 \newcommand{\citep}[2][]{\parencite[vgl.][#1]{#2}}
 \let\citet\cite
 %\let\citet\textcite
 
-\usepackage{xspace}
-%%% Fussnoten/Endnoten ===================================================
-%
-%%% Doc: ftp://tug.ctan.org/pub/tex-archive/macros/latex/contrib/footmisc/footmisc.pdf
-%
+
+%%%%%%%%%%
+% Fussnoten/Endnoten
+% Doc: ftp://tug.ctan.org/pub/tex-archive/macros/latex/contrib/footmisc/footmisc.pdf
 \usepackage[
    bottom,      % Footnotes appear always on bottom. This is necessary
                 % especially when floats are used
@@ -156,13 +167,27 @@
 \interfootnotelinepenalty=10000 % Verhindert das Fortsetzen von
                                 % Fussnoten auf der gegenüberligenden Seite
 
-\newcommand{\ua}{u.\,a.\xspace}
-\newcommand{\vgl}{vgl.\xspace}
-\newcommand{\zB}{z.\,B.\xspace}
-\renewcommand{\dh}{d.h.\xspace}
-\usepackage{xcolor}
-\usepackage{xifthen}% provides \isempty test 
 
+%%%%%%%%%%
+% Hypertext Referenzen.
+\usepackage[
+  unicode,
+  bookmarks=true,
+  bookmarksnumbered=true,
+%  bookmarksopen=true,
+%  bookmarksopenlevel=1,
+%  colorlinks=true,
+%  pdfpagelabels=true,
+%  hyperindex=true,
+%  linkcolor=black, %blue, %default: red
+%  citecolor=black, %Mulberry,%DarkOrchid, %default: green
+%  urlcolor=black, %blue, default: cyan
+  pdfview=Fit,
+  pdfpagelayout=SinglePage,
+]{hyperref}
+
+
+% TBD: Was ist das alles?
 \definecolor{quotemark}{gray}{0.7}
 \newenvironment{fquote}[1]{%
   \newcommand{\fqauthor}{\relax}
@@ -203,12 +228,16 @@
 %\usepackage[compact]{titlesec}
 %\titlespacing{\chapter}{0pt}{0pt}{12pt}
 
-\raggedbottom
 
 \renewcommand*{\chapterheadstartvskip}{\vspace*{-\topskip}\vspace{-\baselineskip}}
+\renewcommand*{\chapterheadendvskip}{\vspace{.3cm}}
+%\renewcommand*{\chapterheadstartvskip}{\vspace{-.3cm}}
+%\renewcommand*{\chapterheadstartvskip}{\vspace*{-\topskip}}
+%\renewcommand*{\chapterheadendvskip}{.5\baselineskip}
 
+% TBD: Was bewirkt das Folgende?
+\iffalse
 %\usepackage{titlesec}
-
 
 \makeatletter
 % Warnen, falls die vorgefundene Originaldefinition nicht
@@ -231,7 +260,6 @@
   }%
 }
 
-
 \renewcommand\section{\@startsection{section}{1}{\z@}%
   {-.5\baselineskip}%
   {.5\baselineskip}%
@@ -239,21 +267,64 @@
     \setlength{\parfillskip}{\z@ plus 1fil}\fi
     \raggedsection\normalfont\sectfont\nobreak\size@section}%
 }
+\makeatother\fi
 
+%%%%%%%%%%
+% \date und \author umbiegen, damit dieses in \OrtDatumWieImTitel
+% bzw. \AutorWieImTitel zwischengespeichert wird (scrbook schmeisst
+% die Werte bei \maketitle weg).
+\makeatletter%
+\let\tempD@teTaqcRdbh\date% altes \date zwischenspeichern.
+\let\tempAuthorTaqcRdbh\author% altes \date zwischenspeichern.
+\let\tempmaketitleTaqcRdbh\maketitle% altes \maketitle zwischenspeichern.
+\newcommand{\OrtDatumWieImTitel}{Ort und Datum unbekannt (\textbackslash date aufrufen zum Setzen).}
+\newcommand{\AutorWieImTitel}{Autor unbekannt (\textbackslash author aufrufen zum Setzen).}
+\newcommand{\MatrikelNrWieImTitel}{Matrikelnr.\ unbekannt (\textbackslash matrikelno aufrufen zum Setzen).}
+\newcommand{\EMailWieImTitel}{E-Mail Adresse unbekannt (\textbackslash email aufrufen zum Setzen).}
+\renewcommand{\date}[1]{\renewcommand{\OrtDatumWieImTitel}{#1}}%
+\renewcommand{\author}[1]{\renewcommand{\AutorWieImTitel}{#1}}%
+\newcommand{\matrikelno}[1]{\renewcommand{\MatrikelNrWieImTitel}{#1}}%
+\newcommand{\email}[1]{\renewcommand{\EMailWieImTitel}{#1}}%
+\renewcommand{\maketitle}{%
+  \subject{Bachelorarbeit}%
+  \tempD@teTaqcRdbh{\OrtDatumWieImTitel}%
+  \tempAuthorTaqcRdbh{{\AutorWieImTitel}%
+    \texorpdfstring{\vspace{-.1cm}\\{\small%
+        Matrikelnummer: {\MatrikelNrWieImTitel} | {\texttt{\EMailWieImTitel}}}}{}}%
+  \tempmaketitleTaqcRdbh}
 \makeatother
 
-\renewcommand*{\chapterheadstartvskip}{\vspace{-.3cm}}
-%\renewcommand*{\chapterheadstartvskip}{\vspace*{-\topskip}}
-\renewcommand*{\chapterheadendvskip}{\vspace{.3cm}}
-%\renewcommand*{\chapterheadendvskip}{.5\baselineskip}
 
+%%%%%%%%%%
+% Um "To Be Dones" zu markieren. Benutzung via
+% \TBD[Text]
+% Wichtig: In eckigen Klammern.  Gibt einen roten Text am Rand aus und
+% eine Meldung in die log-Datei.  Wird kein Text angegeben, wird eine
+% Standardmeldung ausgegeben.
+% TBD: Vor dem Druck auskommentieren, es sollten dann keine Fehler
+% auftreten.
+%
+% TBD für das TBD: Warum werden zusätzliche Leerzeichen im Fließtext
+% eingefügt?
+\newcommand{\TBD}[1][\relax]{\ifx#1\relax%
+  \marginpar{\raggedright\footnotesize\singlespacing\color{red}{To Be Done.}}%
+  \typeout{warning: Unresolved to-be-done}\else%
+  \marginpar{\raggedright\footnotesize\singlespacing\color{red}#1}%
+  \typeout{warning: Unresolved to-be-done: #1}%
+  \fi\xspace}
+
+
+%%%%%%%%%%
+% Abkürzungen.
+\newcommand{\ua}{u.\,a.\xspace}
+\newcommand{\vgl}{vgl.\xspace}
+\newcommand{\zB}{z.\,B.\xspace}
+\renewcommand{\dh}{d.\,h.\xspace}
+
+
+%%%%%%%%%%
+% Anfang Inhalt.
 \begin{document}
-
-%Falls Abbildungen im Anhang sind und es mehr als 9 sind:
-%Abstände im Inhaltsverzeichnis korrigieren
-\makeatletter
-\renewcommand\l@figure{\@dottedtocline{0}{0em}{3em}} 
-\makeatother
 
 \setlength{\parindent}{2em}
 \renewcommand{\subsectionautorefname}{Abschnitt}
@@ -263,57 +334,51 @@
 %\titlespacing{\subsection}{11pt}{0em}{0em}
 %\titlespacing{\subsubsection}{11pt}{0em}{0em}
 
-\titlehead{\centering\Large Hochschule Esslingen\\
-Fakultät: Soziale Arbeit, Gesundheit und Pflege\\
-Studiengang: Bildung und Erziehung in der Kindheit (B.\,A.)
-}
-\subject{Bachelorarbeit}
-%\subtitle{Klein aber fein?}
-\date{Esslingen, 15.\ Mai 2012}
-\publishers{\raggedright 
-\large
-\begin{tabular}{ll}
-Betreuende Professorin: &Prof.\,Dr.\,paed.\,Dipl.-Päd.\ Regine Morys\\
-Zweitprüferin: &Prof.\,Dr.\,phil.\,Dipl.-Sozialpäd.\,(FH)\,Dipl.-Päd.\ Ulrike Zöller
-\end{tabular}
-}
 
-\author{Vorname Nachname\vspace{-.3cm}\\{\small Matrikelnummer: 11\,22\,33 | {xy00@hs-esslingen.de}}}
-\title{Mein Titel\\mit einem kleinen  Umbruch}
+%%%%%%%%%%
+% Titelseite.
+%\author{Vorname Nachname}%
+%\matrikelno{11\,22\,33}%
+%\email{xy00@hs-esslingen.de}%
+\title{Mein Titel\texorpdfstring{\\}{ }mit einem kleinen Umbruch}%
+% \subtitle{Klein aber oho?}%
+%\date{Esslingen, \today}%
+\publishers{\raggedright\large\begin{tabular}{ll}
+    Betreuende Professorin: &Prof.\,Dr.\,paed.\,Dipl.-Päd.\ Regine Morys\\
+    Zweitprüferin: &Prof.\,Dr.\,phil.\,Dipl.-Sozialpäd.\,(FH)\,Dipl.-Päd.\ Ulrike Zöller
+  \end{tabular}}%
+\titlehead{\centering\Large Hochschule Esslingen\\%
+  Fakultät für Soziale Arbeit, Gesundheit und Pflege\\%
+  Studiengang Bildung und Erziehung in der Kindheit (B.\,A.)}%
 
-\lowertitleback{
-\href{http://creativecommons.org/licenses/by-sa/3.0/de/}{\includegraphics[scale=.5]{CC-by-sa.png}}
-%Dieses Werk bzw. Inhalt steht unter einer \href{http://creativecommons.org/licenses/by-sa/3.0/de/}{Creative Commons Namensnennung-Weitergabe unter gleichen Bedingungen 3.0 Deutschland Lizenz}.
 
-Diese Arbeit wurde mit Hilfe von \href{http://www.komascript.de/}{\KOMAScript} und \href{http://www.luatex.org/}{LuaLaTeX} gesetzt. Die Vorlage befindet über \href{https://github.com/latextemplates/SAGP}{{https://github.com/latextemplates/SAGP}} verfügbar.
-}
+% Titel und Autoren in PDF Metadaten setzen.
+\makeatletter\hypersetup{pdftitle={\@title}}\hypersetup{pdfauthor=\@author}\makeatother
 
-\maketitle
+\maketitle\cleardoublepage
 
- %Darf NICHT benutzt werden, da ALLE Überschriften auch im Inhaltsverzeichnis auftauchen sollen
-%\setcounter{tocdepth}{1}
 
-\tableofcontents
-\listoffigures
 
-\chapter*{Abkürzungsverzeichnis}
-\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
-%\centering
+%%%%%%%%%%
+% Inhaltsverzeichnis
+% % Folgendes darf NICHT benutzt werden, da ALLE Überschriften auch im
+% % Inhaltsverzeichnis auftauchen sollen.
+% \setcounter{tocdepth}{1}
 
-\begin{tabularx}{.8\textwidth}{@{}lX}
-%\begin{tabular}{lp{.6\textwidth}}
-\textbf{Abkürzung} & \textbf{Bedeutung}\\
-%{\ArialRounded Abkürzung} & {\ArialRounded Bedeutung}\\
-BMFSFJ & Bundesministerium für Familie, Senioren, Frauen und Jugend\\
-FaFo & FamilienForschung Baden-Württemberg\\
-VAMV & Verband alleinerziehender Mütter und Väter, Bundesverband e.\,V.\\
-\end{tabularx}
+% Falls Abbildungen im Anhang sind und es mehr als 9 sind:
+% Abstände im Inhaltsverzeichnis korrigieren
+\makeatletter\renewcommand\l@figure{\@dottedtocline{0}{0em}{3em}}\makeatother
 
+\tableofcontents\cleardoublepage
+
+
+%%%%%%%%%%
 \chapter{Einleitung}
 %\setcounter{page}{1} %REMOVEME
 \label{Einleitung}
 Dies ist ein LaTeX-Dokument, das den Formvorschriften der Fakultät SAGP von Anfang 2012 folgt.
 Insbesondere wird die Schriftart Arial mit dem korrekten Zeilenabstand verwendet.
+
 
 \section{Abschnitt}
 Zitate: Am Ende in der Klammer (\vgl \citet[9]{Peuckert2008}).
@@ -322,6 +387,7 @@ Es Kapitel, Graphiken usw.\ werden mit \autoref{Einleitung} gemacht:
 Die Arbeit wird mit dem \autoref{zusammenfassung} \enquote{\nameref{zusammenfassung}} abgeschlossen.
 
 Anführungszeichen mit \enquote{Text}.
+
 
 \subsection{Unterabschnitt}
 
@@ -339,23 +405,47 @@ Statistisches Bundesamt, 2011: Statistik der Geburten in
 \end{figure}
 
 
-\chapter{Zusammenfassung und Ausblick}
-\label{zusammenfassung}
+\chapter{Zusammenfassung und Ausblick}\label{zusammenfassung}
 
 \minisec{Ausblick}
 %nicht als \section{}, da es keine zweite section hier gibt.
 
 
-%Literaturverzeichnis
+%%%%%%%%%%
+% Abkürzungsverzeichnis
+\chapter*{Abkürzungsverzeichnis}
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+% \centering
+
+\begin{tabular}{ll}
+  % \begin{tabular}{lp{.6\textwidth}}
+  \textbf{Abkürzung} & \textbf{Bedeutung}\\
+  % {\ArialRounded Abkürzung} & {\ArialRounded Bedeutung}\\
+  BMFSFJ & Bundesministerium für Familie, Senioren, Frauen und Jugend\\
+  FaFo & FamilienForschung Baden-Württemberg\\
+  VAMV & Verband alleinerziehender Mütter und Väter, Bundesverband e.\,V.\\
+\end{tabular}
+
+
+%%%%%%%%%%
+% Abbildungsverzeichnis
+\listoffigures
+
+
+%%%%%%%%%%
+% Literaturverzeichnis
+\cleardoublepage
 {
-\RaggedRight
-%\singlespacing %Der Standard fordert einzeilig. Es sieht allerdings nicht gut aus.
-\printbibliography
+  \RaggedRight
+  % \singlespacing %Der Standard fordert einzeilig. Das sieht allerdings nicht gut aus.
+  \printbibliography
 }
 
-\noindent
-Die im Literaturverzeichnis aufgeführten Sammelwerke werden indirekt durch das Zitat eines
-enthaltenen Beitrags referenziert. Die Formvorschriften verlangen eine Auflistung dieser im
+\noindent%
+\emph{Hinweis:} %
+Die im Literaturverzeichnis aufgeführten Sammelwerke werden indirekt
+durch das Zitat eines enthaltenen Beitrags referenziert. Die
+Formvorschriften verlangen eine Auflistung dieser im
 Literaturverzeichnis.
 
 % \printbibheading
@@ -378,31 +468,55 @@ Literaturverzeichnis.
 % keyword=nonorig]
 
 
+%%%%%%%%%%
 % Versicherung
-
-\clearpage
+\cleardoublepage
 \pagestyle{empty}
+\chapter*{Eidesstattliche Erklärung}
+\addcontentsline{toc}{chapter}{Eidesstattliche Erklärung}
 
-\centering
-\begin{minipage}{.66\textwidth}
 \begin{center}
-{\Huge\textbf{Erklärung}}
+  \begin{minipage}{\textwidth}
+%     \begin{center}
+%       {\Huge\textbf{Eidesstattliche Erklärung}}
+%     \end{center}
+%     \vspace{1.5\baselineskip}
+%   
+    Hiermit versichere ich gemäß §\,28 der Studien- und
+    Prüfungsordnung der Hochschule Esslingen -- Fakultät Soziale
+    Arbeit, Gesundheit und Pflege, dass ich diese Bachelorarbeit
+    selbständig verfasst und keine anderen als die angegebenen Quellen
+    und Hilfsmittel benutzt habe.
+
+      \vspace{3ex}%
+    \OrtDatumWieImTitel % Wie im Titelblatt
+    % Ort, \today % Frei angepassbar.
+  
+  
+    \vspace{2cm}\hrule\vspace{.2cm}%
+    \AutorWieImTitel % Wie im Titelblatt
+    % Vorname Nachname % Frei angepassbar.
+  \end{minipage}
 \end{center}
-\vspace{1.5\baselineskip}
 
+\null\vfill%
+\noindent%
+\href{http://creativecommons.org/licenses/by-sa/3.0/de/}{\includegraphics[scale=.5]{by-sa}}\\
+Dieses Werk bzw.\ Inhalt steht unter der Lizenz
+\href{http://creativecommons.org/licenses/by-sa/3.0/de/}{Creative
+  Commons Namensnennung-Weitergabe unter gleichen Bedingungen 3.0
+  Deutschland Lizenz}.  Nähere Informationen sind unter
+\url{http://creativecommons.org/licenses/by-sa/3.0/de/} verfügbar.
 
-Hiermit versichere ich gemäß §\,28 der Studien- und
-Prüfungsordnung der Hochschule Esslingen -- Fakultät Soziale Arbeit, Gesundheit
-und Pflege, dass ich diese Bachelorarbeit selbständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe. 
-
-\vspace{3ex}
-Ort, 15.\ Mai 2012
-
-\vspace{3cm}
-\hrule
-\vspace{.2cm}
-Vorname Nachname
-
-\end{minipage}
+\medskip\noindent%
+Diese Arbeit wurde mit Hilfe von
+\href{http://www.komascript.de/}{\KOMAScript}
+und %\href{http://www.luatex.org/}{LuaLaTeX}
+\LaTeX\ %
+gesetzt.
+%
+Eine Vorlage ist unter
+\href{https://github.com/latextemplates/SAGP}{{https://github.com/latextemplates/SAGP}}
+verfügbar.
 
 \end{document}
